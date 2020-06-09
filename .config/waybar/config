@@ -1,0 +1,57 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "bottom", // Waybar at the bottom of your screen
+    "height": 19, // Waybar height
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["pulseaudio", "network", "cpu","temperature", "backlight", "memory", "battery", "tray", "clock"],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{name}"
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "tray": {
+        "spacing": 10
+    },
+    "clock": {
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": "| {usage}% "
+    },
+    "memory": {
+        "format": "| {}% "
+    },
+    "backlight": {
+       "format": "| {percent}% {icon}",
+       "format-icons": ["", ""]
+    },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "critical-threshold": 80,
+        "format": "| {temperatureC}°C {icon} ",
+        "format-icons": ["", "", ""]
+    },
+    "network": {
+        "format-ethernet": "| {ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": "| Disconnected ⚠"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    }
+}

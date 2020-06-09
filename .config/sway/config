@@ -1,0 +1,205 @@
+# sway config file
+#
+include "$HOME/.cache/wal/colors-sway"
+# --------Variables-------- #
+
+set $mod Mod4
+set $alt Mod1
+
+# Workspace variables
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+set $wsgames "Games"
+set $wsweb "Web"
+set $wssocial "Social"
+set $wsdev "Dev"
+
+seat seat0 xcursor_theme Breeze_Default 16
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'FlatColor'
+    gsettings set $gnome-schema icon-theme 'flattrcolor-dark'
+    gsettings set $gnome-schema cursor-size '16'
+    gsettings set $gnome-schema cursor-theme 'Breeze_Default'
+}
+
+# -------- Borders n gaps -------- #
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {{}} block below.
+font pango:Noto Sans 14px
+
+gaps outer 1
+gaps inner 8
+default_border pixel 5
+
+# class                 border          backgr.         text            indicator       child_border
+client.focused          $color12        $color12        $foreground     $color12        $color12
+client.unfocused        $background     $background     $foreground     $background     $background
+
+# ------- Hardware config ---------- #
+
+output HDMI-A-1 pos 0 0
+output DVI-D-1 pos 0 2160
+output DP-1 pos 1920 2160
+
+workspace 1 output DVI-D-1
+workspace 2 output DP-1
+workspace 3 output HDMI-A-1
+
+input type:keyboard {
+        xkb_layout gb
+        xkb_options grp:alt_shift_toggle
+}
+
+bindsym $mod+Escape exec ~/.config/wofi/powermenu.sh
+bindsym XF86PowerOff exec ~/.config/wofi/powermenu.sh
+
+# --------Open programs keybinds-------- #
+
+floating_modifier $mod
+
+bindsym $mod+Return exec chromium 
+bindsym $mod+Shift+Return exec --no-startup-id kitty
+bindsym $mod+space exec "wofi --show drun"
+bindsym $mod+t exec ~/.config/wal/changetheme.sh
+bindsym $mod+g exec /etc/libvirt/vm.sh
+
+# Region-select-screenshot to clipboard
+bindsym Print exec grim -g "$(slurp)" - | swappy -f -
+
+bindsym $mod+h exec clipman pick -t wofi
+
+# --------Workspace/Window keybinds-------- #
+
+# Kill focused window
+bindsym $mod+q kill
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+o sticky toggle
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+b workspace $wsweb
+bindsym $mod+s workspace $wssocial
+bindsym $mod+d workspace $wsdev
+
+# Switch between workspaces
+bindsym $mod+Tab workspace back_and_forth
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+b move container to workspace $wsweb
+bindsym $mod+Shift+s move container to workspace $wssocial
+bindsym $mod+Shift+d move container to workspace $wsdev
+
+# Move workspace to other monitors
+bindsym $mod+Shift+bracketright move workspace to output right
+bindsym $mod+Shift+bracketleft move workspace to output left
+bindsym $mod+Shift+plus move workspace to output up
+
+# --------Misc keybinds-------- #
+
+bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
+bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
+bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $SWAYSOCK.wob ) || pamixer --get-volume > $SWAYSOCK.wob
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86MonBrightnessUp exec brightnessctl s 1%+
+bindsym XF86MonBrightnessDown exec brightnessctl s 1%-
+
+# --------sway Stuff-------- #
+
+# exit sway
+bindsym $mod+Shift+e exit
+
+bar {
+    swaybar_command waybar
+}
+
+# --------Custom Modes-------- #
+
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+ 
+# --------For window options -------- # 
+
+for_window [workspace=$wsgames] layout tabbed
+for_window [workspace=$wsweb] layout tabbed
+for_window [app_id="wofi"] border none
+
+# --------Startup-------- #
+
+exec "~/.local/bin/pywalfox daemon"
+exec swaymsg workspace "1"
+exec libinput-gestures-setup start
+exec redshift
+exec autotiling
+exec mako
+exec wl-paste -t text --watch clipman store
+exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+output * background $wallpaper stretch
