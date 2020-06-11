@@ -48,14 +48,6 @@ client.unfocused        $background     $background     $foreground     $backgro
 
 # ------- Hardware config ---------- #
 
-output HDMI-A-1 pos 0 0
-output DVI-D-1 pos 0 2160
-output DP-1 pos 1920 2160
-
-workspace 1 output DVI-D-1
-workspace 2 output DP-1
-workspace 3 output HDMI-A-1
-
 input type:keyboard {
         xkb_layout gb
         xkb_options grp:alt_shift_toggle
@@ -64,15 +56,25 @@ input type:keyboard {
 bindsym $mod+Escape exec ~/.config/wofi/powermenu.sh
 bindsym XF86PowerOff exec ~/.config/wofi/powermenu.sh
 
+bindsym $mod+End exec 'swaylock -i "~/.config/wal/pix/*" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000'
+
+exec swayidle -w \
+        timeout 300 'swaylock -i "~/.config/wal/pix/*" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000' \
+        timeout 600 'systemctl suspend' \
+        resume 'swaymsg "output * dpms on" ; libinput-gestures-setup restart' \
+        before-sleep 'swaylock -i "~/.config/wal/pix/*" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000' \
+
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
 # --------Open programs keybinds-------- #
 
 floating_modifier $mod
 
 bindsym $mod+Return exec chromium 
-bindsym $mod+Shift+Return exec --no-startup-id kitty
+bindsym $mod+Shift+Return exec kitty
 bindsym $mod+space exec "wofi --show drun"
 bindsym $mod+t exec ~/.config/wal/changetheme.sh
-bindsym $mod+g exec /etc/libvirt/vm.sh
 
 # Region-select-screenshot to clipboard
 bindsym Print exec grim -g "$(slurp)" - | swappy -f -
