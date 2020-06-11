@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variables
-locations=("wallpapers:top:10:week" "wallpapers:hot:10" "wallpapers:top:10:year" "wallpaper:top:10:month" "wallpaper:top:10:week" "wallpaper:top:10:month" "wallpaper:top:10:year" "wallpaper:hot:10" "wallpaper:hot:10") 
+locations=("wallpapers:top:1:week" "wallpapers:hot:1" "wallpapers:top:1:year" "wallpaper:top:1:month" "wallpaper:top:1:week" "wallpaper:top:1:month" "wallpaper:top:1:year" "wallpaper:hot:1" "wallpaper:hot:1") 
 index=$(shuf -i 1-${#locations[@]} -n 1)
 echo $index
 # Grab wallpaper and set colourschemes
