@@ -202,7 +202,6 @@ exec libinput-gestures-setup start
 exec redshift
 exec autotiling
 exec mako
-exec wl-paste -t text --watch clipman store
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output * background $wallpaper stretch
