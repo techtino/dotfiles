@@ -1,1 +1,2 @@
-# Homedir-desktop
+# My dotfiles, used for my installation script.
+
