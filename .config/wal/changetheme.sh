@@ -7,6 +7,7 @@ echo $index
 # Grab wallpaper and set colourschemes
 ~/.config/wal/reddit-wallpaper --clear --min-resolution 1920x1080 ${locations[index-1]}
 wpg -s ~/.config/wal/pix
+feh --bg-scale ~/.config/wal/pix
 ~/.config/wal/pywal-discord/pywal-discord
 pywalfox update
 spicetify update
