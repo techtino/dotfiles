@@ -1,0 +1,201 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+ 
+ 
+[colors]
+background = ${xrdb:color0:#222}
+foreground = ${xrdb:color12:#222}
+foreground-alt = ${xrdb:color7:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+alert = ${xrdb:color3:#222}
+grey = #808080
+ 
+[bar/bottom]
+;monitor = ${env:MONITOR:HDMI-1}
+override-redirect = false
+enable-ipc = true
+width = 100%
+height = 19
+;offset-x = 1%
+;offset-y = 3%
+radius = 0,5
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 2
+;line-color = #f00
+;border-size = 4
+;border-color = #00000000
+padding-left = 1
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 1
+bottom = true
+separator = |
+font-0 = "Noto Sans:pixelsize=10;0"
+font-1 = Font Awesome 5 Free:pixelsize=10;0
+font-2 = Font Awesome 5 Free Solid:pixelsize=10;0
+font-3 = Font Awesome 5 Brands:pixelsize=10;0
+ 
+modules-left = i3
+modules-center = xwindow
+modules-right = pulseaudio eth cpu temperature memory date
+ 
+tray-position = right
+tray-padding = 1
+;tray-background = #0063ff
+ 
+;wm-restack = bspwm
+wm-restack = i3
+ 
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+ 
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+ 
+cursor-click = pointer
+cursor-scroll = ns-resize
+ 
+ 
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:50:...%
+ 
+ 
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+ 
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+ 
+label-mode-padding = 1
+label-mode-foreground = ${colors.background}
+label-mode-background = ${colors.foreground}
+ 
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = ${colors.background}
+label-focused-foreground = ${colors.foreground}
+label-focused-padding = 1
+ 
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = 1
+label-unfocused-foreground = ${colors.grey}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+ 
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+ 
+; Separator in between workspaces
+; label-separator = |
+ 
+[module/temperature]
+type = internal/temperature
+hwmon-path = /sys/class/hwmon/hwmon1/temp1_input
+label = %temperature-c% 
+
+[module/cpu]
+type = internal/cpu
+label = %percentage%% 
+
+[module/memory]
+type = internal/memory
+interval = 5
+label = %percentage_used%% 
+ 
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 5
+ 
+format-connected = <label-connected>
+label-connected =  %signal%%
+:%essid%
+ 
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;label-disconnected = %ifname% disconneced
+;label-disconnected-foreground = ${colors.foreground-alt}
+ 
+ 
+[module/eth]
+type = internal/network
+interface = enp4s0
+interval = 3.0
+ 
+;format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %ifname%: %local_ip%/24
+ 
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+ 
+[module/date]
+type = internal/date
+interval = 5
+ 
+date =
+date-alt = " %Y-%m-%d"
+ 
+time = %H:%M
+time-alt = %H:%M:%S
+ 
+;format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+ 
+label = %time%
+ 
+[module/pulseaudio]
+type = internal/pulseaudio
+ 
+format-volume = <label-volume>
+ 
+label-volume = %percentage%% 
+label-volume-foreground = ${colors.foreground}
+ 
+label-muted = %percentage%% 
+label-muted-foreground = ${colors.foreground}
+ 
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+ 
+ 
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+ 
+; vim:ft=dosinit
