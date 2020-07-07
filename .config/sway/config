@@ -198,7 +198,7 @@ for_window [app_id="wofi"] border none
 
 exec "~/.local/bin/pywalfox daemon"
 exec swaymsg workspace "1"
-exec libinput-gestures-setup start
+exec libinput-gestures-setup restart
 exec redshift
 exec autotiling
 exec mako
