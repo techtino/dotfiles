@@ -5,6 +5,7 @@ set ignorecase
 set mouse=a
 set nobackup
 set tabstop=4
+set clipboard=unnammed,unnamedplus
 call plug#begin()
 Plug 'dylanaraps/wal.vim'
 call plug#end()
