@@ -5,7 +5,7 @@ include "$HOME/.cache/wal/colors-sway"
 
 set $mod Mod4
 set $alt Mod1
-
+xwayland disable
 # Workspace variables
 set $ws1 "1"
 set $ws2 "2"
@@ -40,7 +40,7 @@ font pango:Noto Sans 14px
 
 gaps outer 1
 gaps inner 8
-default_border pixel 5
+default_border pixel 3
 
 # class                 border          backgr.         text            indicator       child_border
 client.focused          $color12        $color12        $foreground     $color12        $color12
@@ -53,16 +53,13 @@ input type:keyboard {
         xkb_options grp:alt_shift_toggle
 }
 
-bindsym $mod+Escape exec ~/.config/wofi/powermenu.sh
-bindsym XF86PowerOff exec ~/.config/wofi/powermenu.sh
+workspace 1 output DVI-D-1
+workspace 2 output DP-1
+workspace $wssocial output DP-1
+bindsym $mod+Escape exec wlogout 
+bindsym XF86PowerOff exec wlogout 
 
-bindsym $mod+End exec 'swaylock -i "~/.config/wal/*.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000'
-
-exec swayidle -w \
-        timeout 300 'swaylock -i "~/.config/wal/*.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000' \
-        timeout 600 'systemctl suspend' \
-        resume 'swaymsg "output * dpms on" ; libinput-gestures-setup restart' \
-        before-sleep 'swaylock -i "~/.config/wal/*.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000' \
+bindsym $mod+End exec 'swaylock -i "~/.config/wal/wall.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000'
 
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
@@ -71,10 +68,12 @@ bindswitch --reload --locked lid:off output $laptop enable
 
 floating_modifier $mod
 
-bindsym $mod+Return exec chromium 
+bindsym $mod+Return exec firefox 
 bindsym $mod+Shift+Return exec kitty
 bindsym $mod+space exec "wofi --show drun"
 bindsym $mod+t exec ~/.config/wal/changetheme.sh
+
+bindsym $mod+g exec /etc/libvirt/vm.sh
 
 # Region-select-screenshot to clipboard
 bindsym Print exec grim -g "$(slurp)" - | swappy -f -
@@ -193,6 +192,8 @@ bindsym $mod+r mode "resize"
 for_window [workspace=$wsgames] layout tabbed
 for_window [workspace=$wsweb] layout tabbed
 for_window [app_id="wofi"] border none
+for_window [app_id="zenmonitor"] floating enable
+assign [title="discord"] $wssocial
 
 # --------Startup-------- #
 
@@ -205,3 +206,7 @@ exec mako
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output * background $wallpaper stretch
+exec openrgb --server
+exec sh -c 'sleep 5 && BulbAndPCLighting'
+exec jellyfin-mpv-shim
+exec chromium --app=https://discord.com/channels/
