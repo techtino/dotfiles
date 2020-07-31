@@ -3,6 +3,7 @@
 }
 window {
     background-image: image(url("/home/techtino/.config/wal/wall.png"), url("/home/techtino/.config/wal/wall.png"));
+    background-size: cover;
 }
 button {
     background-color: #2e3440;
