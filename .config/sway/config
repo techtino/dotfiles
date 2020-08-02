@@ -19,7 +19,7 @@ set $ws9 "9"
 
 set $wsgames "Games"
 set $wsweb "Web"
-set $wssocial "Social"
+set $wssocial "🧑‍🦰"
 set $wsdev "Dev"
 
 seat seat0 xcursor_theme Breeze_Default 16
