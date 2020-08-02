@@ -56,8 +56,9 @@ input type:keyboard {
 workspace 1 output DVI-D-1
 workspace 2 output DP-1
 workspace $wssocial output DP-1
-bindsym $mod+Escape exec wlogout 
-bindsym XF86PowerOff exec wlogout 
+
+bindsym $mod+Escape exec sh -c "grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') -t jpeg /home/techtino/.config/wlogout/shot.png && wlogout"
+bindsym XF86PowerOff exec sh -c "grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') -t jpeg /home/techtino/.config/wlogout/shot.png && wlogout"
 
 bindsym $mod+End exec 'swaylock -i "~/.config/wal/wall.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000'
 
