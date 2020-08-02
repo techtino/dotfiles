@@ -46,6 +46,7 @@
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
+        "format-charging": "{capacity}% {icon} 🔌"
     },
     "network": {
         "format-wifi": "| {essid} ({signalStrength}%) ",
