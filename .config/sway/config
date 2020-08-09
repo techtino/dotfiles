@@ -71,15 +71,13 @@ floating_modifier $mod
 
 bindsym $mod+Return exec firefox 
 bindsym $mod+Shift+Return exec kitty
-bindsym $mod+space exec "wofi --show drun"
+bindsym $mod+space exec "rofi -show drun"
 bindsym $mod+t exec ~/.config/wal/changetheme.sh
 
 bindsym $mod+g exec /etc/libvirt/vm.sh
 
 # Region-select-screenshot to clipboard
 bindsym Print exec grim -g "$(slurp)" - | swappy -f -
-
-bindsym $mod+h exec clipman pick -t wofi
 
 # --------Workspace/Window keybinds-------- #
 
