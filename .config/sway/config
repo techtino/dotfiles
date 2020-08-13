@@ -48,9 +48,20 @@ client.unfocused        $background     $background     $foreground     $backgro
 
 # ------- Hardware config ---------- #
 
+#input "1267:12419:ETD2303:00_04F3:3083_Touchpad" {
+ #       tap enabled
+  #      natural_scroll enabled
+#}
+
+#input "1452:781:Tino’s_Mouse" {
+ #       natural_scroll enabled
+#}
+
+#output eDP-1 mode --custom 1920x1080@72Hz
+
 input type:keyboard {
-        xkb_layout gb
-        xkb_options grp:alt_shift_toggle
+ #       xkb_layout gb
+  #      xkb_options grp:alt_shift_toggle
 }
 
 workspace 1 output DVI-D-1
@@ -61,6 +72,12 @@ bindsym $mod+Escape exec sh -c "grim -o $(swaymsg -t get_outputs | jq -r '.[] | 
 bindsym XF86PowerOff exec sh -c "grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') -t jpeg /home/techtino/.config/wlogout/shot.png && wlogout"
 
 bindsym $mod+End exec 'swaylock -i "~/.config/wal/wall.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000'
+
+exec swayidle -w \
+        timeout 300 'swaylock -i "~/.config/wal/wall.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000' \
+        timeout 600 'systemctl suspend' \
+        resume 'swaymsg "output eDP-1 dpms on" ; libinput-gestures-setup restart' \
+        before-sleep 'swaylock -i "~/.config/wal/wall.png" --indicator-radius 220 --indicator --clock --effect-blur 7x5 --effect-vignette 0.5:0.5 -f -c 000000' \
 
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
