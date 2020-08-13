@@ -1,10 +1,10 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "bottom", // Waybar at the bottom of your screen
-    "height": 19, // Waybar height
+    "layer": "bottom", // Waybar at top layer
+    "position": "top", // Waybar at the bottom of your screen
+    "height": 20, // Waybar height
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "network", "cpu","temperature", "backlight", "memory", "battery", "tray", "clock"],
+    "modules-right": ["tray", "network", "pulseaudio", "cpu", "temperature", "backlight", "memory", "battery", "clock"],
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
@@ -30,7 +30,7 @@
        "format-icons": ["", ""]
     },
     "temperature": {
-        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "thermal-zone": "2",
         "critical-threshold": 80,
         "format": "| {temperatureC}°C {icon} ",
         "format-icons": ["", "", ""]
@@ -39,24 +39,26 @@
         "bat": "BAT0",
         "states": {
             // "good": 95,
-            "warning": 30,
-            "critical": 15
+            "warning": 10,
+            "critical": 1
         },
         "format": "| {capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
         "format-charging": "{capacity}% {icon} 🔌"
     },
     "network": {
-        "format-wifi": "| {essid} ({signalStrength}%) ",
+        "format-wifi": "",
         "format-ethernet": "| {ifname}: {ipaddr}/{cidr} ",
-        "format-disconnected": "| Disconnected ⚠"
+        "format-disconnected": "",
+        "tooltip-format-wifi": "{essid}  ({signalStrength}%)  ",
+        "on-click": "networkmanager_dmenu"
     },
     "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "",
+        "format": "|  {volume}% {icon}",
+        "format-bluetooth": "|  {volume}% {icon}",
+        "format-muted": "|  ",
         "format-icons": {
             "headphones": "",
             "handsfree": "",
