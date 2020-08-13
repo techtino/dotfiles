@@ -201,7 +201,7 @@ exec swaymsg workspace "1"
 exec libinput-gestures-setup restart
 exec redshift
 exec autotiling
-exec mako
+exec_always "~/.config/mako/launch.sh"
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output * background $wallpaper stretch
