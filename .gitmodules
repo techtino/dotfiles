@@ -6,7 +6,7 @@
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule ".config/zsh/themes/agnoster-zsh-theme"]
 	path = .config/zsh/themes/agnoster-zsh-theme
-	url = https://github.com/agnoster/agnoster-zsh-theme.git
+	url = https://github.com/agnoster/agnoster-zsh-theme
 [submodule ".config/zsh/plugins/zsh-history-substring-search"]
 	path = .config/zsh/plugins/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
