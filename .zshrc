@@ -21,4 +21,4 @@ prompt_context() { }
 (cat ~/.config/wpg/sequences &)
 source ~/.cache/wal/colors-tty.sh
 
-[[ $TERM == xterm-kitty ]] && { clear && bitfetch; };
+[[ $TERM == xterm-termite ]] && { clear && bitfetch; };
