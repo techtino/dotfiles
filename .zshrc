@@ -13,6 +13,16 @@ source ~/.config/zsh/themes/agnoster-zsh-theme/agnoster.zsh-theme
 source /usr/share/doc/pkgfile/command-not-found.zsh
 source ~/.config/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+function cd() {
+    new_directory="$*";
+    if [ $# -eq 0 ]; then 
+        new_directory=${HOME};
+    fi;
+    builtin cd "${new_directory}" && exa
+}
+
+alias ls='exa'
+
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
