@@ -1,0 +1,1 @@
+amd_iommu=1 iommu=pt video=DP-1:1920x1080@60 video=HDMI-A-1:1920x1080@60 video=efifb:off
