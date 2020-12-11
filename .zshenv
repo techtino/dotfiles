@@ -4,3 +4,4 @@ export XDG_SESSION_TYPE=wayland
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export PATH=$PATH:/var/lib
 export QT_QPA_PLATFORM=wayland
+export TERM=xterm-256color
