@@ -87,11 +87,8 @@ bindswitch --reload --locked lid:off output $laptop enable
 floating_modifier $mod
 
 bindsym $mod+Return exec firefox 
-bindsym $mod+Shift+Return exec kitty
+bindsym $mod+Shift+Return exec foot
 bindsym $mod+space exec "rofi -show drun"
-bindsym $mod+t exec ~/.config/wal/changetheme.sh
-
-bindsym $mod+g exec /etc/libvirt/vm.sh
 
 # Region-select-screenshot to clipboard
 bindsym Print exec grim -g "$(slurp)" - | swappy -f -
@@ -202,27 +199,22 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
- 
-# --------For window options -------- # 
 
-for_window [workspace=$wsgames] layout tabbed
-for_window [workspace=$wsweb] layout tabbed
-for_window [app_id="wofi"] border none
-for_window [app_id="zenmonitor"] floating enable
-assign [title="discord"] $wssocial
+# Cheeky workaround to let me use keyboard shortcuts when in horizon (or other remote desktop protocols)
+mode "horizon" {
+        bindsym $mod+n mode "default"
+}
+
+bindsym $mod+n mode "horizon"
+
+# --------For window options -------- # 
 
 # --------Startup-------- #
 
-exec "~/.local/bin/pywalfox daemon"
 exec swaymsg workspace "1"
 exec libinput-gestures-setup restart
-exec redshift
 exec autotiling
-exec_always "~/.config/mako/launch.sh"
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output * background $wallpaper stretch
-exec openrgb --server
-exec sh -c 'sleep 5 && BulbAndPCLighting'
 exec jellyfin-mpv-shim
-exec chromium --app=https://discord.com/channels/
